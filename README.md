@@ -7,7 +7,7 @@
 
 ## Overview
 
-ClipGen-M is a powerful suite of utilities designed to interface with various Large Language Models (LLMs), including Mistral, Google Gemini, GitHub Copilot, Groq, and Pollinations AI. This project provides a unified command-line interface and a system-tray background service to bring AI capabilities directly to your Windows workflow.
+ClipGen-M is a powerful suite of utilities designed to interface with various Large Language Models (LLMs), including Mistral, Google Gemini, GitHub Copilot, Groq, Pollinations AI, and Cerebras Cloud. This project provides a unified command-line interface and a system-tray background service to bring AI capabilities directly to your Windows workflow.
 
 ## Key Features
 
@@ -29,6 +29,7 @@ ClipGen-M is a powerful suite of utilities designed to interface with various La
 - `cmd/ghllm` – CLI utility for GitHub Copilot.
 - `cmd/groqllm` – CLI utility for Groq.
 - `cmd/pollinationsllm` – CLI utility for Pollinations AI.
+- `cmd/cerebrasllm` – CLI utility for Cerebras Cloud.
 - `cmd/mistral` – CLI utility for Mistral.
 
 ## Main Module: ClipGen-m (Clipboard Manager)
@@ -42,7 +43,7 @@ The core `clipgen-m` module is a Windows background service that lives in your s
 - **Selection Processing**: Process text currently selected in any application without overriding your clipboard.
 - **Clipboard OCR**: Extract text from images currently stored in the clipboard.
 - **Layout Switcher**: A "Punto Switcher" style feature to quickly fix text typed in the wrong keyboard layout (e.g., Russian vs. English).
-- **Multi-LLM Integration**: Switch between Mistral, Gemini, Copilot, Groq, and Pollinations AI on the fly.
+- **Multi-LLM Integration**: Switch between Mistral, Gemini, Copilot, Groq, Pollinations AI, and Cerebras Cloud on the fly.
 
 ### Supported Formats:
 
@@ -53,7 +54,7 @@ The core `clipgen-m` module is a Windows background service that lives in your s
 
 ## Unified Command-Line Flags
 
-All LLM utilities support a standardized set of flags (using either `-` or `--` prefixes):
+All LLM utilities support a standardized set of command-line flags (using either `-` or `--` prefixes):
 
 - `-f` / `--file` – Attach files (Images, Audio, PDF, or Text).
 - `-s` / `--system` / `--system-prompt` – Set the system instruction.
@@ -73,7 +74,7 @@ ClipGen-m provides a robust chat experience through the integrated **ChatUI** an
 - **Graphical Interface**: A clean UI with markdown support and message history.
 - **Session Management**: Create, save, and switch between multiple chat sessions.
 - **File Attachments**: Drop files and images directly into your conversation.
-- **Provider Switching**: Toggle between Mistral, Gemini, GitHub Copilot, and Groq within the same interface.
+- **Provider Switching**: Toggle between Mistral, Gemini, GitHub Copilot, Groq, and Cerebras Cloud within the same interface.
 - **Fine-grained Control**: Set specific temperatures and system prompts per chat.
 - **Context Persistence**: Full message history is preserved to maintain conversation flow.
 
@@ -175,15 +176,17 @@ call build.bat
 Utilities accept input via `stdin` and support various data types depending on the specific model's API.
 
 - `mistral.exe`: Supports images, audio, text, and PDF (via OCR).
-- `geminillm.exe`: Supports images, text, and audio (includes automatic ffmpeg conversion).
+- `geminillm.exe`: Supports images, audio, text, and PDF (via OCR).
 - `ghllm.exe`: Supports images, text, and audio.
 - `plnllm.exe`: Supports images, audio, text, and PDF; includes tool support (Lua calculator, web search).
+- `cerebrasllm.exe`: Supports images (Gemma 4) and text. Features sub-second latency with Cerebras LPU acceleration.
 
 **CLI Examples:**
 ```cmd
 echo "Summarize this" | mistral.exe --system "Professional assistant" --temperature 0.3
 echo "Translate to French" | geminillm.exe --mode general
 echo "Make it JSON" | ghllm.exe --mode general --json
+echo "Explain quantum physics" | cerebrasllm.exe --mode general
 ```
 
 ## File Locations

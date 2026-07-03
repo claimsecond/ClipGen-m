@@ -224,13 +224,21 @@ func restoreClipboardSnapshot(snapshots []ClipboardSnapshot) error {
 // ==========================================================
 
 type Config struct {
-	EditorPath      string   `yaml:"editor_path"`
-	LLMPath         string   `yaml:"llm_path"`
-	SystemPrompt    string   `yaml:"system_prompt"`
-	AppToggleHotkey string   `yaml:"app_toggle_hotkey"`
-	ChatUIPath      string   `yaml:"chatui_path"`
-	ChatUIHotkey    string   `yaml:"chatui_hotkey"`
-	Actions         []Action `yaml:"actions"`
+	EditorPath      string    `yaml:"editor_path"`
+	LLMPath         string    `yaml:"llm_path"`
+	SystemPrompt    string    `yaml:"system_prompt"`
+	AppToggleHotkey string    `yaml:"app_toggle_hotkey"`
+	ChatUIPath      string    `yaml:"chatui_path"`
+	ChatUIHotkey    string    `yaml:"chatui_hotkey"`
+	Actions         []Action  `yaml:"actions"`
+}
+
+type PTTConfig struct {
+	Enabled      bool   `yaml:"enabled"`
+	Hotkey       string `yaml:"hotkey"`
+	LLMPath      string `yaml:"llm_path,omitempty"`
+	LLMArgs      string `yaml:"llm_args,omitempty"`
+	SystemPrompt string `yaml:"system_prompt,omitempty"`
 }
 
 type Action struct {
@@ -870,6 +878,7 @@ func setupTray() {
 	mGhllmConf := systray.AddMenuItem("Github Config", "Редактировать github.conf")
 	mGroqllmConf := systray.AddMenuItem("Groq Config", "Редактировать groq.conf")
 	mPlnConf := systray.AddMenuItem("Pollinations Config", "Редактировать pollinations.conf")
+	mCerebrasConf := systray.AddMenuItem("Cerebras Config", "Редактировать cerebras.conf")
 	mTavilyConf := systray.AddMenuItem("Tavily Config", "Редактировать tavily.conf")
 
 	systray.AddSeparator()
@@ -879,6 +888,7 @@ func setupTray() {
 	mGhllmLog := systray.AddMenuItem("Github Log", "Просмотр github_err.log")
 	mGroqllmLog := systray.AddMenuItem("Groq Log", "Просмотр groq_err.log")
 	mPlnLog := systray.AddMenuItem("Pollinations Log", "Просмотр pollinations_err.log")
+	mCerebrasLog := systray.AddMenuItem("Cerebras Log", "Просмотр cerebras_err.log")
 
 	systray.AddSeparator()
 	mReload := systray.AddMenuItem("Перезагрузка", "Применить конфиг")
@@ -930,8 +940,10 @@ func setupTray() {
 				openFileInConfigDir("groq.conf")
 			case <-mPlnConf.ClickedCh:
 				openFileInConfigDir("pollinations.conf")
+			case <-mCerebrasConf.ClickedCh:
+				openFileInConfigDir("cerebras.conf")
 
-			// Логи
+				// Логи
 			case <-mMistralLog.ClickedCh:
 				openFileInConfigDir("mistral_err.log")
 			case <-mGeminillmLog.ClickedCh:
@@ -942,6 +954,8 @@ func setupTray() {
 				openFileInConfigDir("groq_err.log")
 			case <-mPlnLog.ClickedCh:
 				openFileInConfigDir("pollinations_err.log")
+			case <-mCerebrasLog.ClickedCh:
+				openFileInConfigDir("cerebras_err.log")
 			case <-mLog.ClickedCh:
 				openLogFile()
 

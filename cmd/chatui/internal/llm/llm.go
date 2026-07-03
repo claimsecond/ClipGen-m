@@ -37,6 +37,8 @@ func GetProvider(providerName string) (LLMProvider, error) {
 		return &GenericClient{command: "groqllm.exe"}, nil
 	case "plnllm":
 		return &GenericClient{command: "plnllm.exe"}, nil
+	case "cerebrasllm":
+		return &GenericClient{command: "cerebrasllm.exe"}, nil
 	default:
 		return &MistralClient{}, nil // Mistral по умолчанию
 	}

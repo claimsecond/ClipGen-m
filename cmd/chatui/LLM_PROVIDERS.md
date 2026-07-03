@@ -17,6 +17,8 @@ The following architectural changes were made to support multiple AI backends:
 - `geminillm` — Google Gemini
 - `ghllm` — GitHub Copilot / Chat
 - `groqllm` — Groq
+- `plnllm` — Pollinations AI
+- `cerebrasllm` — Cerebras Cloud (Ultra-fast LPU, Gemma 4)
 
 ## Unified CLI Flag Support
 

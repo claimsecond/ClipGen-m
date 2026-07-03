@@ -4,7 +4,7 @@
 
 ## Overview
 
-All LLM utilities within the ecosystem (`mistral`, `geminillm`, `ghllm`, `groqllm`) have been updated to support a standardized set of command-line flags. This ensures a consistent user experience regardless of which AI provider you are using.
+All LLM utilities within the ecosystem (`mistral`, `geminillm`, `ghllm`, `groqllm`, `plnllm`, `cerebrasllm`) have been updated to support a standardized set of command-line flags. This ensures a consistent user experience regardless of which AI provider you are using.
 
 ## Supported Flags
 
@@ -12,8 +12,8 @@ All utilities now support the following unified flags. For flexibility, both sin
 
 - **`-f` / `--file`** – Specify files for processing. Multiple files can be attached by repeating the flag. Supported formats vary by utility:
     - **Images & Text**: Supported by all utilities.
-    - **Audio**: Full support in `mistral`, `ghllm`, and `groqllm`. `geminillm` handles incompatible formats (like `.amr`) via automated `ffmpeg` conversion.
-    - **PDF**: Supported via native OCR in `mistral`.
+    - **Audio**: Full support in `mistral`, `ghllm`, and `groqllm`. `geminillm` and `plnllm` handle incompatible formats (like `.amr`) via automated `ffmpeg` conversion.
+    - **PDF**: Supported via native OCR in `mistral` and `plnllm`.
 - **`-s` / `--system` / `--system-prompt`** – Set a custom system instruction (overrides the default configuration).
 - **`-j` / `--json`** – Force the model to output a valid JSON object.
 - **`-m` / `--mode`** – Set the operational mode (`auto`, `general`, `code`, `ocr`, `audio`, `vision`).
@@ -38,6 +38,9 @@ groqllm.exe -s "Analyze the attached data" --temperature 0.5 -m general
 
 # Multimodal example with geminillm
 geminillm.exe -f "chart.png" --system "Describe this image" --mode vision
+
+# Combined syntax with cerebrasllm
+cerebrasllm.exe -s "Summarize" --temperature 0.3 -j
 ```
 
 ## Backward Compatibility

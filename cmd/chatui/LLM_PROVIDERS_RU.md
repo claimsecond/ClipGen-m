@@ -13,6 +13,8 @@
 - `geminillm` - Google Gemini
 - `ghllm` - GitHub Copilot/Chat
 - `groqllm` - Groq
+- `plnllm` - Pollinations AI
+- `cerebrasllm` - Cerebras Cloud (ультрабыстрый LPU, Gemma 4)
 
 ## Унификация команд
 

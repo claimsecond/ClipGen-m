@@ -85,6 +85,15 @@ if !errorlevel! neq 0 (
 )
 cd ..\..
 
+echo Building cerebrasllm...
+cd cmd\cerebrasllm
+go build -o ..\..\dist\windows-amd64\cerebrasllm.exe
+if !errorlevel! neq 0 (
+    echo Error building cerebrasllm
+    exit /b !errorlevel!
+)
+cd ..\..
+
 echo Building mistral...
 cd cmd\mistral
 go build -o ..\..\dist\windows-amd64\mistral.exe
