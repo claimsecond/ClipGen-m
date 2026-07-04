@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
@@ -502,6 +503,9 @@ func loadConfig(path string) (*Config, error) {
 
 	var cfg Config
 	if err := json.NewDecoder(f).Decode(&cfg); err != nil {
+		if errors.Is(err, io.EOF) {
+			return &Config{}, nil
+		}
 		return nil, err
 	}
 	return &cfg, nil
@@ -510,8 +514,7 @@ func loadConfig(path string) (*Config, error) {
 func addKeyToConfig(path, key string) error {
 	cfg, err := loadConfig(path)
 	if err != nil {
-		// If config is malformed or cannot be loaded, start fresh with a new config.
-		cfg = &Config{}
+		return err
 	}
 	if cfg == nil {
 		cfg = &Config{}
