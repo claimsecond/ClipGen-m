@@ -508,7 +508,15 @@ func loadConfig(path string) (*Config, error) {
 }
 
 func addKeyToConfig(path, key string) error {
-	cfg, _ := loadConfig(path)
+	cfg, err := loadConfig(path)
+	if err != nil {
+		// If config is malformed or cannot be loaded, start fresh with a new config.
+		cfg = &Config{}
+	}
+	if cfg == nil {
+		cfg = &Config{}
+	}
+
 	exists := false
 	for _, k := range cfg.ApiKeys {
 		if k == key {
